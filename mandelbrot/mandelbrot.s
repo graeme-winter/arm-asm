@@ -11,6 +11,7 @@
 	@ r6, r7 for the real and imaginary counters (increment by 0x8000)
 	@ r8, r9 for zr2, zi2
 	@ r10, r11 for working space for SMULL instruction
+	@ r12 pointer to next word to write
 
 	@ data are stored in 7.24 format fixed point
 	@ domain in real is -2 to 0.5, imag -1.25 to +1.25
@@ -20,9 +21,10 @@ _start:
 	mov R1, #-2
 	lsl R1, #24
 	add R1, R1, #0x4000
-	mov R2, #5
+	mov R2, #-5
 	lsl R2, #22
 	add R1, R1, #0x4000
+	ldr R12, =image
 	
 	@ start loop imag
 	mov R7, #0
@@ -73,20 +75,27 @@ iter:
 end:
 
 	@ save value
+	str R0, [R12, #0]
+	add R12, #4
 
-	@ increment real
+	@ increment real, continue
+	add R1, R1, #0x8000
+	cmp R1, #8388608
+	blt real
 
-	@ real < limit? next real
+	@ increment imag, continue
+	add R2, R2, #0x8000
+	cmp R2, #20971520
+	blt imag
 
-	@ increment imag
-
-	@ imag < limit? next imag
-
-	@ stop
+	@ write out array
+        mov R0, #1
+        ldr R1, =image
+        mov R2, #6553600
+        mov R7, #4
+        svc 0	
 
 	@ end
-
-	
         mov R0, #0
         mov R7, #1
         svc 0
