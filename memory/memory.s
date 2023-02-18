@@ -4,7 +4,7 @@
 _start: mov R0, #0
         mov R1, #4096
         ldr R2, =image
-        next:
+next:
         str R0, [R2, R0]
         add R0, #4
         cmp R0, R1
