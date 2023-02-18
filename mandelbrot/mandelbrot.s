@@ -93,4 +93,3 @@ end:
 
 .bss
 image:	 .skip 6553600
-	
