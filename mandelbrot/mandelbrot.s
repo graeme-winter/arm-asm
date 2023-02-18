@@ -53,23 +53,24 @@ iter:
 
 	@ sum and cmp
 	add R5, R8, R9
-	cmp R5, #67108864
+	cmp R5, #0x4000000
 	bgt end
 
 	@ next zr
 	mov R5, R3
-	add R10, R8, R9
+	sub R10, R8, R9
 	add R3, R10, R1
 
 	@ next zi
 	smull R10, R11, R5, R4
-	asr R10, #23
-	lsl R11, #9
+	asr R10, #24
+	lsl R11, #8
 	orr R5, R10, R11
+	lsl R5, #1
 	add R4, R5, R2
 	
 	add R0, #1
-	cmp R0, #4096
+	cmp R0, #0x1000
 	bne iter
 
 end:
