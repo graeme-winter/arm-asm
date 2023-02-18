@@ -11,6 +11,7 @@ _start: mov R0, #0
         bne next
 
         mov R0, #1
+        ldr R1, =image
         mov R2, #4096
         mov R7, #4
         svc 0
