@@ -75,18 +75,18 @@ end:
 
 	@ increment real, continue
 	add R1, R1, #0x8000
-	cmp R1, #8388608
+	cmp R1, #0x800000
 	blt real
 
 	@ increment imag, continue
 	add R2, R2, #0x8000
-	cmp R2, #20971520
+	cmp R2, #0x1400000
 	blt imag
 
 	@ write out array
         mov R0, #1
         ldr R1, =image
-        mov R2, #6553600
+        mov R2, #0x640000
         mov R7, #4
         svc 0	
 
@@ -96,4 +96,4 @@ end:
         svc 0
 
 .bss
-image:	 .skip 6553600
+image:	 .skip 0x640000
