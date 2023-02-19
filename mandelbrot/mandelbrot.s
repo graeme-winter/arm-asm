@@ -58,8 +58,7 @@ iter:
 	smull R6, R7, R5, R4
 	lsr R6, #24
 	orr R5, R6, R7, lsl #8
-	lsl R5, #1
-	add R4, R5, R2
+	add R4, R2, R5, lsl #1
 
 	add R0, #1
 	cmp R0, #0x1000
