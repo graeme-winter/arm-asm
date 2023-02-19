@@ -2,21 +2,19 @@
 .global _start
 
 	@ register allocations
-	@ r0 iteration counter
-	@ r1 real part of c
-	@ r2 imag part of c
-	@ r3 real part of z
-	@ r4 imag part of z
+	@ r0 iter counter
+	@ r1/r2 real / imag c
+	@ r3/r4 real / imag z
 	@ r5 tmp / scratch to alias zr
 	@ r8, r9 for zr2, zi2
-	@ r10, r11 for working space for SMULL instruction
-	@ r12 pointer to next word to write
+	@ r6, r7 for working space for SMULL instruction
+	@ r10 pointer to next word to write
 
 	@ data are stored in 7.24 format fixed point
 	@ domain in real is -2 to 0.5, imag -1.25 to +1.25
 
 _start:
-	ldr R12, =image
+	ldr R10, =image
 
 	@ initial values for ci - origin as above + 0.5 x box
 	mov R2, #-5
@@ -37,14 +35,14 @@ real:
 
 iter:
 	@ zr^2
-	smull R10, R11, R3, R3
-	lsr R10, #24
-	orr R8, R10, R11, lsl #8
+	smull R6, R7, R3, R3
+	lsr R6, #24
+	orr R8, R6, R7, lsl #8
 
 	@ zi^2
-	smull R10, R11, R4, R4
-	lsr R10, #24
-	orr R9, R10, R11, lsl #8
+	smull R6, R7, R4, R4
+	lsr R6, #24
+	orr R9, R6, R7, lsl #8
 
 	@ sum and cmp for zr^2 + zi^2
 	add R5, R8, R9
@@ -53,13 +51,13 @@ iter:
 
 	@ next zr
 	mov R5, R3
-	sub R10, R8, R9
-	add R3, R10, R1
+	sub R6, R8, R9
+	add R3, R6, R1
 
 	@ next zi
-	smull R10, R11, R5, R4
-	lsr R10, #24
-	orr R5, R10, R11, lsl #8
+	smull R6, R7, R5, R4
+	lsr R6, #24
+	orr R5, R6, R7, lsl #8
 	lsl R5, #1
 	add R4, R5, R2
 
@@ -70,8 +68,8 @@ iter:
 end:
 
 	@ save value
-	str R0, [R12, #0]
-	add R12, #4
+	str R0, [R10, #0]
+	add R10, #4
 
 	@ increment real, continue
 	add R1, R1, #0x8000
