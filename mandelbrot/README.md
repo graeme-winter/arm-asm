@@ -12,4 +12,8 @@ Notes:
     orr R5, R10, R11, lsl #8
 ```
 
-This motif was useful, to multiply / shift R5 * R4 -> R5.
+This motif was useful, to multiply / shift R5 * R4 -> R5. This is quite common in `mandelbrot.s`.
+
+## Commentary
+
+This shows some very nice features of the ARM processors in different generations of the π - π0 with the ancient arm11 core takes about a minute at 1GHz. The π4 I have at 1.5GHz takes about 15s, because the CPU is slightly faster but more importantly a triple issue core, and many of the instructions can be issued in parallel.
