@@ -16,14 +16,15 @@
 	@ domain in real is -2 to 0.5, imag -1.25 to +1.25
 	
 _start:
-	@ initial values for cr, ci - origin as above + 0.5 x box
+	ldr R12, =image
+
+	@ initial values for ci - origin as above + 0.5 x box
 	mov R2, #-5
 	lsl R2, #22
-	add R1, R1, #0x4000
-	ldr R12, =image
+	add R2, R2, #0x4000
 	
 imag:
-	@ set up for real scan
+	@ initial values for cr - origin as above + 0.5 x box
 	mov R1, #-2
 	lsl R1, #24
 	add R1, R1, #0x4000
@@ -47,7 +48,7 @@ iter:
 	lsl R11, #8
 	orr R9, R10, R11
 
-	@ sum and cmp
+	@ sum and cmp for zr^2 + zi^2
 	add R5, R8, R9
 	cmp R5, #0x4000000
 	bgt end
