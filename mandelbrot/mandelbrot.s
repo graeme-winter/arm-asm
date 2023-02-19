@@ -8,7 +8,6 @@
 	@ r3 real part of z
 	@ r4 imag part of z
 	@ r5 tmp / scratch to alias zr
-	@ r6, r7 for the real and imaginary counters (increment by 0x8000)
 	@ r8, r9 for zr2, zi2
 	@ r10, r11 for working space for SMULL instruction
 	@ r12 pointer to next word to write
@@ -18,26 +17,23 @@
 	
 _start:
 	@ initial values for cr, ci - origin as above + 0.5 x box
-	mov R1, #-2
-	lsl R1, #24
-	add R1, R1, #0x4000
 	mov R2, #-5
 	lsl R2, #22
 	add R1, R1, #0x4000
 	ldr R12, =image
 	
-	@ start loop imag
-	mov R7, #0
 imag:
-	mov R6, #0
-real:	
-	add R8, R1, R6, LSL #15
-	add R9, R2, R7, LSL #15
+	@ set up for real scan
+	mov R1, #-2
+	lsl R1, #24
+	add R1, R1, #0x4000
 
-	@ set up for iter
+real:	
+	@ set up for iter - count, zr, zi
 	mov R0, #0
 	mov R3, #0
 	mov R4, #0
+
 iter:
 	@ zr^2
 	smull R10, R11, R3, R3
