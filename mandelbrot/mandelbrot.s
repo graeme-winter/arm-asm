@@ -38,15 +38,13 @@ real:
 iter:
 	@ zr^2
 	smull R10, R11, R3, R3
-	asr R10, #24
-	lsl R11, #8
-	orr R8, R10, R11
+	lsr R10, #24
+	orr R8, R10, R11, lsl #8
 
 	@ zi^2
 	smull R10, R11, R4, R4
-	asr R10, #24
-	lsl R11, #8
-	orr R9, R10, R11
+	lsr R10, #24
+	orr R9, R10, R11, lsl #8
 
 	@ sum and cmp for zr^2 + zi^2
 	add R5, R8, R9
@@ -60,9 +58,8 @@ iter:
 
 	@ next zi
 	smull R10, R11, R5, R4
-	asr R10, #24
-	lsl R11, #8
-	orr R5, R10, R11
+	lsr R10, #24
+	orr R5, R10, R11, lsl #8
 	lsl R5, #1
 	add R4, R5, R2
 	
