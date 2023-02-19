@@ -14,7 +14,7 @@
 
 	@ data are stored in 7.24 format fixed point
 	@ domain in real is -2 to 0.5, imag -1.25 to +1.25
-	
+
 _start:
 	ldr R12, =image
 
@@ -22,14 +22,14 @@ _start:
 	mov R2, #-5
 	lsl R2, #22
 	add R2, R2, #0x4000
-	
+
 imag:
 	@ initial values for cr - origin as above + 0.5 x box
 	mov R1, #-2
 	lsl R1, #24
 	add R1, R1, #0x4000
 
-real:	
+real:
 	@ set up for iter - count, zr, zi
 	mov R0, #0
 	mov R3, #0
@@ -62,7 +62,7 @@ iter:
 	orr R5, R10, R11, lsl #8
 	lsl R5, #1
 	add R4, R5, R2
-	
+
 	add R0, #1
 	cmp R0, #0x1000
 	bne iter
