@@ -80,16 +80,16 @@ end:
 	blt imag
 
 	@ write out array
-        mov R0, #1
-        ldr R1, =image
-        mov R2, #0x640000
-        mov R7, #4
-        svc 0	
+	mov R0, #1
+	ldr R1, =image
+	mov R2, #0x640000
+	mov R7, #4
+	svc 0
 
 	@ end
-        mov R0, #0
-        mov R7, #1
-        svc 0
+	mov R0, #0
+	mov R7, #1
+	svc 0
 
 .bss
 image:	 .skip 0x640000
