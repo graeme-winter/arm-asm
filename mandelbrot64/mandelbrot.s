@@ -18,13 +18,13 @@ _start:
 
 	// initial values for ci - origin as above + 0.5 x box
 	mov W2, #-5
-	lsl W2, #22
+	lsl W2, W2, #22
 	add W2, W2, #0x4000
 
 imag:
 	// initial values for cr - origin as above + 0.5 x box
 	mov W1, #-2
-	lsl W1, #24
+	lsl W1, W1, #24
 	add W1, W1, #0x4000
 
 real:
@@ -35,7 +35,7 @@ real:
 
 iter:
 	// zr^2
-	smull W6, W7, W3, W3
+	smull X6, W3, W3
 	lsr W6, #24
 	orr W8, W6, W7, lsl #8
 
