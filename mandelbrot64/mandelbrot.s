@@ -17,78 +17,75 @@ _start:
 	ldr W10, =image
 
 	// initial values for ci - origin as above + 0.5 x box
-	mov W2, #-5
-	lsl W2, W2, #22
-	add W2, W2, #0x4000
+	mov X2, #-5
+	lsl X2, X2, #22
+	add X2, X2, #0x4000
 
 imag:
 	// initial values for cr - origin as above + 0.5 x box
-	mov W1, #-2
-	lsl W1, W1, #24
-	add W1, W1, #0x4000
+	mov X1, #-2
+	lsl X1, X1, #24
+	add X1, X1, #0x4000
 
 real:
 	// set up for iter - count, zr, zi
-	mov W0, #0
-	mov W3, #0
-	mov W4, #0
+	mov X0, #0
+	mov X3, #0
+	mov X4, #0
 
 iter:
 	// zr^2
-	smull X6, W3, W3
-	lsr W6, #24
-	orr W8, W6, W7, lsl #8
+	mul X8, X3, X3
+	lsr X8, X8, #24
 
 	// zi^2
-	smull W6, W7, W4, W4
-	lsr W6, #24
-	orr W9, W6, W7, lsl #8
+	mul X9, X4, X4
+	lsr X8, X8, #24
 
 	// sum and cmp for zr^2 + zi^2
-	add W5, W8, W9
-	cmp W5, #0x4000000
+	add X5, X8, X9
+	cmp X5, #0x4000000
 	bgt end
 
 	// next zr
-	mov W5, W3
-	sub W6, W8, W9
-	add W3, W6, W1
+	mov X5, X3
+	sub X6, X8, X9
+	add X3, X6, X1
 
 	// next zi
-	smull W6, W7, W5, W4
-	lsr W6, #24
-	orr W5, W6, W7, lsl #8
-	add W4, W2, W5, lsl #1
+	mul X6, X5, X4
+	lsr X6, X6, #24
+	add X4, X2, X6, lsl #1
 
-	add W0, #1
-	cmp W0, #0x1000
+	add X0, X0, #1
+	cmp X0, #0x1000
 	bne iter
 
 end:
 	// save value
-	str W0, [W10, #0]
-	add W10, #4
+	str X0, [X10, #0]
+	add X10, X10, #4
 
 	// increment real, continue
-	add W1, W1, #0x8000
-	cmp W1, #0x800000
+	add X1, X1, #0x8000
+	cmp X1, #0x800000
 	blt real
 
 	// increment imag, continue
-	add W2, W2, #0x8000
-	cmp W2, #0x1400000
+	add X2, X2, #0x8000
+	cmp X2, #0x1400000
 	blt imag
 
 	// write out array
-	mov W0, #1
+	mov X0, #1
 	ldr W1, =image
-	mov W2, #0x640000
-	mov W7, #4
+	mov X2, #0x640000
+	mov X7, #4
 	svc 0
 
 	// end
-	mov W0, #0
-	mov W7, #1
+	mov X0, #0
+	mov X7, #1
 	svc 0
 
 .bss
