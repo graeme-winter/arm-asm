@@ -42,9 +42,9 @@ iter:
 	mul X9, X4, X4
 	lsr X8, X8, #24
 
-	// sum and cmp for zr^2 + zi^2
+	// sum and cmp for zr^2 + zi^2 - N.B. the cmp needs the shift
 	add X5, X8, X9
-	lsl X5, X5, #24
+	lsr X5, X5, #24
 	cmp X5, #4
 	bgt end
 
@@ -67,14 +67,14 @@ end:
 	str X0, [X10, #0]
 	add X10, X10, #4
 
-	// increment real, continue
+	// increment real, continue - imm allowed
 	add X1, X1, #0x8000
 	cmp X1, #0x800000
 	blt real
 
 	// increment imag, continue - N.B. some annoying shifts for imm
 	add X2, X2, #0x8000
-	lsl X5, X2, #22
+	lsr X5, X2, #22
 	cmp X2, #5
 	blt imag
 
