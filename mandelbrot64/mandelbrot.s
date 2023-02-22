@@ -40,7 +40,7 @@ iter:
 
 	// zi^2
 	mul X9, X4, X4
-	lsr X8, X8, #24
+	lsr X9, X9, #24
 
 	// sum and cmp for zr^2 + zi^2 - N.B. the cmp needs the shift
 	add X5, X8, X9
@@ -55,8 +55,8 @@ iter:
 
 	// next zi
 	mul X6, X5, X4
-	lsr X6, X6, #24
-	add X4, X2, X6, lsl #1
+	lsr X6, X6, #23
+	add X4, X6, X2
 
 	add X0, X0, #1
 	cmp X0, #0x1000
@@ -64,7 +64,7 @@ iter:
 
 end:
 	// save value
-	str X0, [X10, #0]
+	str W0, [X10, #0]
 	add X10, X10, #4
 
 	// increment real, continue - imm allowed
