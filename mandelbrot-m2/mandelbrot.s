@@ -16,7 +16,7 @@
 
 _start:
 	adrp X10, image@PAGE
-	add X1, X1, image@PAGEOFF
+	add X10, X10, image@PAGEOFF
 
 	// initial values for ci - origin as above + 0.5 x box
 	mov X2, #-5
