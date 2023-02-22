@@ -36,15 +36,15 @@ real:
 iter:
 	// zr^2
 	mul X8, X3, X3
-	lsr X8, X8, #24
+	asr X8, X8, #24
 
 	// zi^2
 	mul X9, X4, X4
-	lsr X9, X9, #24
+	asr X9, X9, #24
 
 	// sum and cmp for zr^2 + zi^2 - N.B. the cmp needs the shift
 	add X5, X8, X9
-	lsr X5, X5, #24
+	asr X5, X5, #24
 	cmp X5, #4
 	bgt end
 
@@ -55,7 +55,7 @@ iter:
 
 	// next zi
 	mul X6, X5, X4
-	lsr X6, X6, #24
+	asr X6, X6, #24
 	add X4, X2, X6, lsl #1
 
 	add X0, X0, #1
@@ -74,8 +74,8 @@ end:
 
 	// increment imag, continue - N.B. some annoying shifts for imm
 	add X2, X2, #0x8000
-	lsr X5, X2, #22
-	cmp X2, #5
+	asr X5, X2, #22
+	cmp X5, #5
 	blt imag
 
 	// write out array
