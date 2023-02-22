@@ -82,12 +82,12 @@ end:
 	mov X0, #1
 	ldr W1, =image
 	mov X2, #0x640000
-	mov X7, #4
+	mov X8, #64
 	svc 0
 
 	// end
 	mov X0, #0
-	mov X7, #1
+	mov X8, #93
 	svc 0
 
 .bss
