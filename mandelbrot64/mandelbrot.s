@@ -55,8 +55,8 @@ iter:
 
 	// next zi
 	mul X6, X5, X4
-	lsr X6, X6, #23
-	add X4, X6, X2
+	lsr X6, X6, #24
+	add X4, X2, X6 lsr #1
 
 	add X0, X0, #1
 	cmp X0, #0x1000
