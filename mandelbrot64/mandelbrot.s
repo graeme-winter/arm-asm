@@ -44,7 +44,8 @@ iter:
 
 	// sum and cmp for zr^2 + zi^2
 	add X5, X8, X9
-	cmp X5, #0x4000000
+	lsl X5, X5, #24
+	cmp X5, #4
 	bgt end
 
 	// next zr
@@ -71,9 +72,10 @@ end:
 	cmp X1, #0x800000
 	blt real
 
-	// increment imag, continue
+	// increment imag, continue - N.B. some annoying shifts for imm
 	add X2, X2, #0x8000
-	cmp X2, #0x1400000
+	lsl X5, X2, #22
+	cmp X2, #5
 	blt imag
 
 	// write out array
