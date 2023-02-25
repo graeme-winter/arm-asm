@@ -47,7 +47,7 @@ iter:
 	// sum and cmp for zr^2 + zi^2
 	add R5, R8, R9
 	cmp R5, #0x4000000
-	bgt end
+	bge end
 
 	// next zr
 	mov R5, R3
