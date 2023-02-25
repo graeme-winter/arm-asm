@@ -46,7 +46,7 @@ iter:
 	add X5, X8, X9
 	asr X5, X5, #24
 	cmp X5, #4
-	bgt end
+	bge end
 
 	// next zr
 	mov X5, X3
