@@ -1,4 +1,5 @@
 #include <unistd.h>
+#include <stdint.h>
 
 #define mul(a, b) (int32_t)((((int64_t)a) * ((int64_t)b)) >> 24)
 
