@@ -67,8 +67,7 @@ iter:
 
 end:
 	// save value
-	str W0, [X10, #0]
-	add W10, W10, #4
+	str W0, [X10], #4
 
 	// increment real, continue - imm allowed
 	add W1, W1, #0x8000
