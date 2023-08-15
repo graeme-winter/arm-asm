@@ -10,6 +10,7 @@
 	// r6, r7 for working space for SMULL instruction
 	// r10 pointer to next word to write
 	// r11 4 << 24 for cmp
+	// r12 5 << 22 for imag iter cmp
 
 	// data are stored in 7.24 format fixed point
 	// domain in real is -2 to 0.5, imag -1.25 to +1.25
