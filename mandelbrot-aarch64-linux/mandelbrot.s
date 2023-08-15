@@ -20,6 +20,10 @@ _start:
 	mov W11, #4
 	lsl W11, W11, #24
 
+	// 5 << 22 for imag cmp
+	mov W12, #5
+	lsl W12, W12, 22
+
 	// initial values for ci - origin as above + 0.5 x box
 	mov W2, #-5
 	lsl W2, W2, #22
@@ -76,8 +80,7 @@ end:
 
 	// increment imag, continue - N.B. some annoying shifts for imm
 	add W2, W2, #0x8000
-	asr W5, W2, #22
-	cmp W5, #5
+	cmp W2, W12
 	blt imag
 
 	// write out array
