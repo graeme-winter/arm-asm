@@ -5,7 +5,7 @@
 	// r0 iter counter
 	// r1/r2 real / imag c
 	// r3/r4 real / imag z
-	// r5 tmp / scratch to alias zr
+	// r5 scratch
 	// r8, r9 for zr2, zi2
 	// r6, r7 for working space for SMULL instruction
 	// r10 pointer to next word to write
@@ -57,15 +57,14 @@ iter:
 	cmp W5, W11
 	bge end
 
-	// next zr
-	mov W5, W3
-	sub W6, W8, W9
-	add W3, W6, W1
-
 	// next zi
-	smull X6, W5, W4
+	smull X6, W3, W4
 	asr X6, X6, #24
 	add W4, W2, W6, lsl #1
+
+	// next zr
+	sub W6, W8, W9
+	add W3, W6, W1
 
 	add W0, W0, #1
 	cmp W0, #0x1000
