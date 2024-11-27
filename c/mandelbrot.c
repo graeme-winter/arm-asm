@@ -27,5 +27,5 @@ int main(int argc, char **argv) {
       offset++;
     }
   }
-  write(1, (void *)iter, 0x640000);
+  offset = write(1, (void *)iter, 0x640000);
 }
